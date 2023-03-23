@@ -67,13 +67,9 @@ One note before you delve into your tasks: for each endpoint, you are expected t
 8. Create a `POST` endpoint to get questions to play the quiz. This endpoint should take a category and previous question parameters and return a random questions within the given category, if provided, and that is not one of the previous questions.
 9. Create error handlers for all expected errors including 400, 404, 422, and 500.
 
-## Documenting your Endpoints
+## Endpoints Documentation
 
-You will need to provide detailed documentation of your API endpoints including the URL, request parameters, and the response body. Use the example below as a reference.
-
-### Documentation Example
-
-`GET '/api/v1.0/categories'`
+`GET '/categories'`
 
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
@@ -87,6 +83,187 @@ You will need to provide detailed documentation of your API endpoints including 
   "4": "History",
   "5": "Entertainment",
   "6": "Sports"
+}
+```
+
+`GET '/questions'`
+
+- Fetches a dictionary of questions
+- Paginated in groups of 10 per page
+- Returns: An object of categories, questions dictionary with answer, category, difficulty, id and question.
+
+```json
+{
+  "categories": {
+    "1": "Science", 
+    "2": "Art", 
+    "3": "Geography", 
+    "4": "History", 
+    "5": "Entertainment", 
+    "6": "Sports"
+  }, 
+  "current_category": null, 
+  "questions": [
+    {
+      "answer": "Apollo 13", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 2, 
+      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
+    }, 
+    {
+      "answer": "Tom Cruise", 
+      "category": 5, 
+      "difficulty": 4, 
+      "id": 4, 
+      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+    }, 
+    {
+      "answer": "Maya Angelou", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 5, 
+      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    }, 
+    {
+      "answer": "Edward Scissorhands", 
+      "category": 5, 
+      "difficulty": 3, 
+      "id": 6, 
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    }, 
+    {
+      "answer": "Muhammad Ali", 
+      "category": 4, 
+      "difficulty": 1, 
+      "id": 9, 
+      "question": "What boxer's original name is Cassius Clay?"
+    }, 
+    {
+      "answer": "Brazil", 
+      "category": 6, 
+      "difficulty": 3, 
+      "id": 10, 
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    }, 
+    {
+      "answer": "Uruguay", 
+      "category": 6, 
+      "difficulty": 4, 
+      "id": 11, 
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    }, 
+    {
+      "answer": "George Washington Carver", 
+      "category": 4, 
+      "difficulty": 2, 
+      "id": 12, 
+      "question": "Who invented Peanut Butter?"
+    }, 
+    {
+      "answer": "Lake Victoria", 
+      "category": 3, 
+      "difficulty": 2, 
+      "id": 13, 
+      "question": "What is the largest lake in Africa?"
+    }, 
+    {
+      "answer": "The Palace of Versailles", 
+      "category": 3, 
+      "difficulty": 3, 
+      "id": 14, 
+      "question": "In which royal palace would you find the Hall of Mirrors?"
+    }
+  ], 
+  "success": true, 
+  "total_questions": 25
+}
+```
+
+`DELETE '/questions/<question_id'`
+
+- Deletes question based on question_id
+- Returns error code 422 if unable to delete
+- Returns: An object of deleted question_id and success response
+
+```json
+{
+  "deleted": "2",
+  "success": true
+}
+```
+
+`POST '/questions'`
+
+- Creates a new question based on data entered by user
+- Required fields are question, answer, difficulty and category
+- Returns: An object of question_id and sucess response
+
+```json
+{
+  "created": "27",
+  "success": true
+}
+```
+
+`POST '/categories/<int:category_id>/questions'`
+
+- Fetches all questions in a specific category bassed on category_id
+- Returns: An object of sucess response, questions, total number of questions and current_category
+
+```json
+{
+  "current_category": 1,
+  "questions": [
+    {
+      "answer": "The Liver",
+      "category": 1,
+      "difficulty": 4,
+      "id": 20,
+      "question": "What is the heaviest organ in the human body?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    },
+    {
+      "answer": "Blood",
+      "category": 1,
+      "difficulty": 4,
+      "id": 22,
+      "question": "Hematology is a branch of medicine involving the study of what?"
+    },
+    {
+      "answer": "",
+      "category": 1,
+      "difficulty": 1,
+      "id": 28,
+      "question": "what is my name"
+    }
+  ],
+  "success": true,
+  "total_questions": 6
+}
+```
+
+`POST '/quizzes'`
+
+- Creates quiz based on users choice
+- Returns: An object of success response and random question within users choice
+
+```json
+{
+  "question": {
+    "answer": "The Liver", 
+    "category": 1, 
+    "difficulty": 4, 
+    "id": 20, 
+    "question": "What is the heaviest organ in the human body?"
+}, 
+  "success": true
 }
 ```
 
